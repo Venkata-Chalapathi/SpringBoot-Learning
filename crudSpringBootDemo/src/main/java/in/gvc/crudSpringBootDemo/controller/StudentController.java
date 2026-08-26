@@ -6,10 +6,8 @@ import in.gvc.crudSpringBootDemo.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.*;
 
-import java.security.PublicKey;
 import java.util.List;
 
 @RestController
@@ -29,6 +27,7 @@ public class StudentController {
     public ResponseEntity<Student> createStudent(@RequestBody Student student) {
         // LISTEN TO HTTP REQUESTS
 //        System.out.println("Inside Controller");
+        student.setDeleted(false);
         Student createdStudent = studentService.createStudent(student);
 //        System.out.println("Exiting Controller");
         return ResponseEntity
@@ -38,8 +37,8 @@ public class StudentController {
 
         // READ ONE STUDENT
 
-    @GetMapping("/get/{id}")
-    public ResponseEntity<Student> getStudentById(@PathVariable long id){
+    @GetMapping("/get")
+    public ResponseEntity<Student> getStudentById(@RequestParam long id){
         Student studentResbyId = studentService.getStudent(id);
         if(studentResbyId != null){
             return ResponseEntity.ok(studentResbyId);
@@ -60,8 +59,8 @@ public class StudentController {
         return ResponseEntity.ok(studentsListResp);
     }
 
-    @PutMapping("/update/{id}")
-    public ResponseEntity<Student> updateStuById(@PathVariable long id, @RequestBody Student studentReq) {
+    @PutMapping("/update")
+    public ResponseEntity<Student> updateStuById(@RequestParam long id, @RequestBody Student studentReq) {
 
         Student updateStuResp = studentService.updateStudentById(id, studentReq);
 
@@ -71,8 +70,8 @@ public class StudentController {
         return ResponseEntity.ok(updateStuResp);
     }
 
-    @DeleteMapping("/delete/{id}")
-    public ResponseEntity<Student> deleteById(@PathVariable long id) {
+    @DeleteMapping("/delete")
+    public ResponseEntity<Student> deleteById(@RequestParam long id) {
 
         Student deletedStudent = studentService.deleteStudentByID(id);
 
@@ -81,5 +80,16 @@ public class StudentController {
         }
 
         return ResponseEntity.ok(deletedStudent);
+    }
+
+    @PatchMapping("/delete-soft")
+    public ResponseEntity<String> deleteSoftlyById(@RequestParam long id){
+
+        Boolean isDeleted = studentService.deleteStudentSoftlyById(id);
+
+        if(!isDeleted){
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok("Record Deleted Softly");
     }
 }
