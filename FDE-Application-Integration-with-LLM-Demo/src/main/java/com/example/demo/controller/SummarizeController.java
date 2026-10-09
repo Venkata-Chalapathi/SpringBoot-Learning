@@ -16,9 +16,9 @@ public class SummarizeController {
         this.summarizeService = summarizeService;
     }
 
-    @PostMapping("/summarize")
-    public String summarize ( @RequestBody String ticket) {
+    @PostMapping("/chat")
+    public String chat(@RequestBody String message) {
 
-        return summarizeService.summarize(ticket);
+        return summarizeService.chat(message);
     }
 }
