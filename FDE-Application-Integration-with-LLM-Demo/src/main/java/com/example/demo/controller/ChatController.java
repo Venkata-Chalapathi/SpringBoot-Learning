@@ -1,6 +1,6 @@
 package com.example.demo.controller;
 
-import com.example.demo.service.SummarizeService;
+import com.example.demo.service.ChatService;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -8,17 +8,17 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/api")
-public class SummarizeController {
+public class ChatController {
 
-    private SummarizeService summarizeService;
+    private ChatService chatService;
 
-    public SummarizeController(SummarizeService summarizeService){
-        this.summarizeService = summarizeService;
+    public ChatController(ChatService chatService){
+        this.chatService = chatService;
     }
 
     @PostMapping("/chat")
     public String chat(@RequestBody String message) {
 
-        return summarizeService.chat(message);
+        return chatService.chat(message);
     }
 }
