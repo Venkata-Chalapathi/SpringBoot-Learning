@@ -18,7 +18,7 @@ public class StudentService {
 //        return "Student Created";
     }
 
-    public String dummyMethod(String s) {
+    public String getStudent(String s) {
 
         return s;
     }

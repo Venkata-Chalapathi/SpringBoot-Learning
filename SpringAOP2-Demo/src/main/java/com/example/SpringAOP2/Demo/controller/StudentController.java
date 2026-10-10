@@ -23,9 +23,9 @@ public class StudentController {
     }
 
     @GetMapping
-    public ResponseEntity<String> dummyMethod() {
+    public ResponseEntity<String> getStudent() {
 
         String s = "Chala";
-        return ResponseEntity.ok(studentService.dummyMethod(s));
+        return ResponseEntity.ok(studentService.getStudent(s));
     }
 }

@@ -69,7 +69,7 @@ public class LoggingAspect {
 //        }
 
     @Around(
-            value = "execution (String com.example.SpringAOP2.Demo.service.StudentService.dummyMethod(..))")
+            value = "execution (String com.example.SpringAOP2.Demo.service.StudentService.getStudent(..))")
     public Object LogAroundMethod(ProceedingJoinPoint joinPoint) throws Throwable {
 
         Object[] arr = joinPoint.getArgs();
